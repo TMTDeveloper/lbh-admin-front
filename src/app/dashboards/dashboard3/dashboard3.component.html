@@ -1,0 +1,221 @@
+<app-pa></app-pa>
+<!-- ============================================================== -->
+<!-- Sales overview chart -->
+<!-- ============================================================== -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title m-b-5">
+                    <span class="lstick"></span>Sales in 2017 </h4>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p class="m-t-30">Lorem ipsum dolor sit amet, ectetur adipiscing elit. viverra tellus. ipsumdolorsitda amet, ectetur
+                            adipiscing elit.</p>
+                        <p>
+                            <p class="m-t-20">Ectetur adipiscing elit. viverra tellus.ipsum dolor sit amet, dag adg ectet uradipi scingda elitdglj.
+                                vadghiverra tellus.</p>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="m-t-40" style="height:250px;">
+                            <canvas baseChart [datasets]="lineChartData1" [labels]="lineChartLabels1" [options]="lineChartOptions1" [colors]="lineChartColors1"
+                                [legend]="lineChartLegend1" [chartType]="lineChartType1"> </canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title m-b-5">
+                    <span class="lstick"></span>User Activity</h4>
+                <div class="steamline">
+                    <div class="sl-item">
+                        <div class="sl-left">
+                            <img class="img-circle" alt="user" src="assets/images/users/1.jpg"> </div>
+                        <div class="sl-right">
+                            <div>
+                                <a href="#">Gohn Doe</a>
+                                <span class="sl-date">5 minutes ago</span>
+                            </div>
+                            <p>Contrary to popular belief</p>
+                        </div>
+                    </div>
+                    <div class="sl-item">
+                        <div class="sl-left">
+                            <img class="img-circle" alt="user" src="assets/images/users/2.jpg"> </div>
+                        <div class="sl-right">
+                            <div>
+                                <a href="#">Gohn Doe</a>
+                                <span class="sl-date">5 minutes ago</span>
+                            </div>
+                            <p>Lorem Ipsum is simply dummy</p>
+                        </div>
+                    </div>
+                    <div class="sl-item">
+                        <div class="sl-left">
+                            <img class="img-circle" alt="user" src="assets/images/users/3.jpg"> </div>
+                        <div class="sl-right">
+                            <div>
+                                <a href="#">Gohn Doe</a>
+                                <span class="sl-date">5 minutes ago</span>
+                            </div>
+                            <p>The standard chunk of ipsum </p>
+                        </div>
+                    </div>
+                    <div class="sl-item">
+                        <div class="sl-left">
+                            <img class="img-circle" alt="user" src="assets/images/users/4.jpg"> </div>
+                        <div class="sl-right">
+                            <div>
+                                <a href="#">Gohn Doe</a>
+                                <span class="sl-date">5 minutes ago</span>
+                            </div>
+                            <p>Contrary to popular belief</p>
+                        </div>
+                    </div>
+                    <div class="sl-item">
+                        <div class="sl-left">
+                            <img class="img-circle" alt="user" src="assets/images/users/5.jpg"> </div>
+                        <div class="sl-right">
+                            <div>
+                                <a href="#">Gohn Doe</a>
+                                <span class="sl-date">5 minutes ago</span>
+                            </div>
+                            <p>The generated lorem ipsum</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <app-feeds></app-feeds>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title m-b-5">
+                    <span class="lstick"></span>Order Status</h4>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Invoice</th>
+                                <th>User</th>
+                                <th>Order date</th>
+                                <th>Amount</th>
+                                <th class="text-center">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <a href="javascript:void(0)" class="btn-link"> Order #53431</a>
+                                </td>
+                                <td>Steve N. Horton</td>
+                                <td>
+                                    <span class="text-muted">
+                                        <i class="fa fa-clock-o"></i> Oct 22, 2014</span>
+                                </td>
+                                <td>$45.00</td>
+                                <td class="text-center">
+                                    <span class="label label-table label-success">Paid</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="javascript:void(0)" class="btn-link"> Order #53432</a>
+                                </td>
+                                <td>Charles S Boyle</td>
+                                <td>
+                                    <span class="text-muted">
+                                        <i class="fa fa-clock-o"></i> Oct 24, 2014</span>
+                                </td>
+                                <td>$245.30</td>
+                                <td class="text-center">
+                                    <span class="label label-table label-info">Shipped</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="javascript:void(0)" class="btn-link"> Order #53433</a>
+                                </td>
+                                <td>Lucy Doe</td>
+                                <td>
+                                    <span class="text-muted">
+                                        <i class="fa fa-clock-o"></i> Oct 24, 2014</span>
+                                </td>
+                                <td>$38.00</td>
+                                <td class="text-center">
+                                    <span class="label label-table label-info">Shipped</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="javascript:void(0)" class="btn-link"> Order #53434</a>
+                                </td>
+                                <td>Teresa L. Doe</td>
+                                <td>
+                                    <span class="text-muted">
+                                        <i class="fa fa-clock-o"></i> Oct 15, 2014</span>
+                                </td>
+                                <td>$77.99</td>
+                                <td class="text-center">
+                                    <span class="label label-table label-info">Shipped</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="javascript:void(0)" class="btn-link"> Order #53435</a>
+                                </td>
+                                <td>Teresa L. Doe</td>
+                                <td>
+                                    <span class="text-muted">
+                                        <i class="fa fa-clock-o"></i> Oct 12, 2014</span>
+                                </td>
+                                <td>$18.00</td>
+                                <td class="text-center">
+                                    <span class="label label-table label-success">Paid</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="javascript:void(0)" class="btn-link">Order #53437</a>
+                                </td>
+                                <td>Charles S Boyle</td>
+                                <td>
+                                    <span class="text-muted">
+                                        <i class="fa fa-clock-o"></i> Oct 17, 2014</span>
+                                </td>
+                                <td>$658.00</td>
+                                <td class="text-center">
+                                    <span class="label label-table label-danger">Refunded</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="javascript:void(0)" class="btn-link">Order #536584</a>
+                                </td>
+                                <td>Scott S. Calabrese</td>
+                                <td>
+                                    <span class="text-muted">
+                                        <i class="fa fa-clock-o"></i> Oct 19, 2014</span>
+                                </td>
+                                <td>$45.58</td>
+                                <td class="text-center">
+                                    <span class="label label-table label-warning">Unpaid</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

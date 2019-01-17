@@ -1,0 +1,218 @@
+<!-- ============================================================== -->
+<!-- Start Page Content -->
+<!-- ============================================================== -->
+<div class="row">
+    <div class="col-12">
+        <!-- You can find this in the dashboard-component -->
+        <app-project-counter></app-project-counter>
+    </div>
+</div>
+<!-- ============================================================== -->
+<!-- chart and stats -->
+<!-- ============================================================== -->
+<div class="row">
+    <!-- chart component -->
+    <div class="col-lg-8 col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex flex-wrap m-b-30">
+                    <div>
+                        <h4 class="card-title">Yearly Sales</h4>
+                    </div>
+                    <div class="ml-auto">
+                        <ul class="list-inline">
+                            <li>
+                                <h6 class="text-primary">
+                                    <i class="fa fa-circle font-10 m-r-10 "></i>Iphone</h6>
+                            </li>
+                            <li>
+                                <h6 class="text-info">
+                                    <i class="fa fa-circle font-10 m-r-10"></i>Ipad</h6>
+                            </li>
+                            <li>
+                                <h6 class="text-danger">
+                                    <i class="fa fa-circle font-10 m-r-10 "></i>Itouch</h6>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="height:355px;">
+                    <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions" [colors]="lineChartColors"
+                        [legend]="lineChartLegend" [chartType]="lineChartType"> </canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- other chart component -->
+    <div class="col-lg-4 col-md-6">
+        <div class="card card-inverse card-megna">
+            <div class="card-body">
+                <div class="d-flex">
+                    <div>
+                        <h3 class="card-title">Sales Analysis</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 align-self-center">
+                        <h2 class="font-light text-white">$347</h2>
+                        <h5 class="text-white op-5 m-t-20">April 2017</h5>
+                        <b class="text-white">(150 Sales)</b>
+                    </div>
+                    <div class="col- ml-auto p-r-20">
+                        <div id="sparkline3dash" class="text-center"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body collapse show bg-danger">
+                <ngb-carousel class="no-control-indicator">
+                    <ng-template ngbSlide>
+                        <div class="">
+                            <h3 class="text-white">My Acting blown
+                                <span class="font-bold">Your Mind</span>
+                                <br/> and you also laugh
+                                <br/>at the moment</h3>
+                            <div class="twi-user">
+                                <img src="assets/images/users/1.jpg" alt="user" class="img-circle img-responsive pull-left">
+                                <h4 class="text-white m-b-0">Mark</h4>
+                                <p class="text-white">Actor</p>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template ngbSlide>
+                        <div class="">
+                            <h3 class="text-white">My Acting blown
+                                <span class="font-bold">Your Mind</span>
+                                <br/> and you also laugh
+                                <br/>at the moment</h3>
+                            <div class="twi-user">
+                                <img src="assets/images/users/2.jpg" alt="user" class="img-circle img-responsive pull-left">
+                                <h4 class="text-white m-b-0">Steve</h4>
+                                <p class="text-white">Actor</p>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template ngbSlide>
+                        <div class="">
+                            <h3 class="text-white">My Acting blown
+                                <span class="font-bold">Your Mind</span>
+                                <br/> and you also laugh
+                                <br/>at the moment</h3>
+                            <div class="twi-user">
+                                <img src="assets/images/users/3.jpg" alt="user" class="img-circle img-responsive pull-left">
+                                <h4 class="text-white m-b-0">Bucky</h4>
+                                <p class="text-white">Actor</p>
+                            </div>
+                        </div>
+                    </ng-template>
+                </ngb-carousel>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ============================================================== -->
+<!-- Report and Comments -->
+<!-- ============================================================== -->
+<!-- Row -->
+<div class="row">
+    <div class="col-lg-6">
+        <!-- You can find this in the dashboard-component -->
+        <app-recent-comment></app-recent-comment>
+    </div>
+    <div class="col-lg-6">
+        <!-- You can find this in the dashboard-component -->
+        <app-earning-report></app-earning-report>
+    </div>
+</div>
+<!-- Row -->
+<div class="row">
+    <!-- chart component -->
+    <div class="col-lg-8 col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex flex-wrap m-b-30">
+                    <div>
+                        <h4 class="card-title">
+                            <span class="lstick"></span>Yearly Sales</h4>
+                    </div>
+                    <div class="ml-auto">
+                        <ul class="list-inline">
+                            <li>
+                                <h6 class="text-primary">
+                                    <i class="fa fa-circle font-10 m-r-10 "></i>Site A</h6>
+                            </li>
+                            <li>
+                                <h6 class="text-info">
+                                    <i class="fa fa-circle font-10 m-r-10"></i>Site B</h6>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="height:370px;">
+                    <canvas baseChart [datasets]="lineChartData1" [labels]="lineChartLabels1" [options]="lineChartOptions1" [colors]="lineChartColors1"
+                        [legend]="lineChartLegend1" [chartType]="lineChartType1"> </canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- other chart component -->
+    <div class="col-lg-4 col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex">
+                    <div>
+                        <h3 class="card-title">Visit Statistics</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 align-self-center">
+                        <h2 class="font-light text-info">5489</h2>
+                        <h5 class="text-muted m-t-20">April 2017</h5>
+                        <b class="text-dark">(Visits)</b>
+                    </div>
+                    <div class="col- ml-auto p-r-20">
+                        <div id="sparkline2dash" class="text-center"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card card-inverse card-primary">
+            <div class="card-body">
+                <div class="d-flex">
+                    <div>
+                        <h3 class="card-title">Sales Analysis</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 align-self-center">
+                        <h2 class="font-light text-white">$347</h2>
+                        <h5 class="text-white op-5 m-t-20">April 2017</h5>
+                        <b class="text-white">(150 Sales)</b>
+                    </div>
+                    <div class="col- ml-auto p-r-20">
+                        <canvas baseChart width="120px" height="120px" [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"
+                            [legend]="lineChartLegend" [colors]="[{backgroundColor: ['#03a9f3', '#4c5667', '#ffffff'], borderColor:['#ab8ce4', '#ab8ce4', '#ab8ce4'] }]">
+                        </canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ============================================================== -->
+<!-- Activity widgets -->
+<!-- You can find this in the dashboard-component -->
+<!-- ============================================================== -->
+<div class="row">
+    <!-- Column -->
+    <div class="col-lg-4 col-xlg-4">
+        <app-to-do></app-to-do>
+    </div>
+    <div class="col-lg-4 col-xlg-4">
+        <app-recent-message></app-recent-message>
+    </div>
+    <div class="col-lg-4">
+        <app-feeds></app-feeds>
+    </div>
+</div>

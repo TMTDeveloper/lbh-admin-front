@@ -1,0 +1,220 @@
+<app-income-counter></app-income-counter>
+
+<!-- ============================================================== -->
+<!-- Subscribe -->
+<!-- ============================================================== -->
+<div class="row" style="margin-top:-30px;">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex">
+
+                    <ul class="list-inline m-b-0 m-auto">
+                        <li>
+                            <h6 class="text-danger">
+                                <i class="fa fa-circle font-10 m-r-10 "></i>Site A</h6>
+                        </li>
+                        <li>
+                            <h6 class="text-info">
+                                <i class="fa fa-circle font-10 m-r-10"></i>Site B</h6>
+                        </li>
+                        <li>
+                            <h6 class="text-primary">
+                                <i class="fa fa-circle font-10 m-r-10"></i>Site C</h6>
+                        </li>
+                    </ul>
+                </div>
+                <div class="m-t-20" style="height:350px;">
+                    <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions" [colors]="lineChartColors"
+                        [legend]="lineChartLegend" [chartType]="lineChartType"> </canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <span class="lstick"></span>New Clients</h4>
+                        <ul class="list-inline two-part">
+                            <li>
+                                <i class="icon icon-people text-info"></i>
+                            </li>
+                            <li class="text-right">
+                                <span class="counter">23</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <span class="lstick"></span>New Projects</h4>
+                        <ul class="list-inline two-part">
+                            <li>
+                                <i class="icon icon-folder text-primary"></i>
+                            </li>
+                            <li class="text-right">
+                                <span class="counter">169</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <span class="lstick"></span>Open Projects</h4>
+                        <ul class="list-inline two-part">
+                            <li>
+                                <i class="icon icon-folder-alt text-danger"></i>
+                            </li>
+                            <li class="text-right">
+                                <span class="counter">311</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <span class="lstick"></span>New Invoices</h4>
+                        <ul class="list-inline two-part">
+                            <li>
+                                <i class="icon icon-wallet text-success"></i>
+                            </li>
+                            <li class="text-right">
+                                <span class="counter">117</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="news-slide m-b-30">
+            <ngb-carousel class="no-control">
+                <ng-template ngbSlide>
+                    <div class="">
+                        <div class="overlaybg">
+                            <img src="assets/images/background/slide1.jpg" />
+                        </div>
+                        <div class="news-content">
+                            <span class="label label-danger label-rounded">Primary</span>
+                            <h2 class="m-t-20">It has survived not only five centuries, but also the leap into electronic typesetting, remaining
+                                essentially unchanged.</h2>
+                        </div>
+                    </div>
+                </ng-template>
+                <ng-template ngbSlide>
+                    <div class="">
+                        <div class="overlaybg">
+                            <img src="assets/images/background/slide1.jpg" />
+                        </div>
+                        <div class="news-content">
+                            <span class="label label-primary label-rounded">Primary</span>
+                            <h2 class="m-t-20">It has survived not only five centuries, but also the leap into electronic typesetting, remaining
+                                essentially unchanged.</h2>
+                        </div>
+                    </div>
+                </ng-template>
+                <ng-template ngbSlide>
+                    <div class="">
+                        <div class="overlaybg">
+                            <img src="assets/images/background/slide1.jpg" />
+                        </div>
+                        <div class="news-content">
+                            <span class="label label-success label-rounded">Primary</span>
+                            <h2 class="m-t-20">It has survived not only five centuries, but also the leap into electronic typesetting, remaining
+                                essentially unchanged.</h2>
+                        </div>
+                    </div>
+                </ng-template>
+            </ngb-carousel>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <!-- chart component -->
+    <div class="col-lg-8 col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex flex-wrap m-b-30">
+                    <div>
+                        <h4 class="card-title">
+                            <span class="lstick"></span>Yearly Sales</h4>
+                    </div>
+                    <div class="ml-auto">
+                        <ul class="list-inline">
+                            <li>
+                                <h6 class="text-primary">
+                                    <i class="fa fa-circle font-10 m-r-10 "></i>Site A</h6>
+                            </li>
+                            <li>
+                                <h6 class="text-info">
+                                    <i class="fa fa-circle font-10 m-r-10"></i>Site B</h6>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="height:370px;">
+                    <canvas baseChart [datasets]="lineChartData1" [labels]="lineChartLabels1" [options]="lineChartOptions1" [colors]="lineChartColors1"
+                        [legend]="lineChartLegend1" [chartType]="lineChartType1"> </canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- other chart component -->
+    <div class="col-lg-4 col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex">
+                    <div>
+                        <h3 class="card-title">Total Site Visits</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 align-self-center">
+                        <h2 class="font-light text-warning">$678</h2>
+                        <h5 class="text-muted m-t-20">April 2017</h5>
+                        <b class="text-dark">(150 Sales)</b>
+                    </div>
+                    <div class="col- ml-auto p-r-20">
+                        <canvas baseChart width="120px" height="120px" [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"
+                            [legend]="lineChartLegend" [colors]="[{backgroundColor: ['#4c5667', '#fec107', '#cccccc'], borderColor:['#fff', '#fff', '#fff'] }]">
+                        </canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex">
+                    <div>
+                        <h3 class="card-title">Sales Difference</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 align-self-center">
+                        <h2 class="font-light text-info">$447</h2>
+                        <h5 class="text-muted m-t-20">April 2017</h5>
+                        <b class="text-dark">(150 sales)</b>
+                    </div>
+                    <div class="col- ml-auto p-r-20">
+                        <div id="sparkline2dash" class="text-center"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
