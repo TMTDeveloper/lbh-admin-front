@@ -39,6 +39,7 @@ export const Approutes: Routes = [
       { path: "tables", loadChildren: "./table/tables.module#TablesModule" },
       { path: "charts", loadChildren: "./charts/charts.module#ChartModule" },
       { path: "user-management", loadChildren: "./user-management/user.master.module#UserMasterModule" },
+      { path: "upload", loadChildren: "./upload/upload.module#UploadModule" },
       {
         path: "widgets",
         loadChildren: "./widgets/widgets.module#WidgetsModule"

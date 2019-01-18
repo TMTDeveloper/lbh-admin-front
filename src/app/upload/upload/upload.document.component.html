@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <form class="input-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <div class="col-lg-6">
+              <label class="control-label m-t-20">Upload PDF</label>
+              <div class="input-group mb-3">
+                <input type="file" name="upload" id="upload" accept="application/pdf" class="form-control" placeholder=""
+                  aria-label="" aria-describedby="basic-addon1" (change)="onFileChange($event)">
+                <div class="input-group-append">
+                  <button class="btn btn-info" type="submit" [disabled]="!readyToUpload || loading" #fileInput>Upload</button>
+                </div>
+              </div>
+              <div *ngIf="!isPDF" class="alert alert-danger">
+                <div> File harus PDF </div>
+              </div>
+            </div>
+          </div>
+        </form>
+        <div class="table table-responsive smart-table">
+          <ng2-smart-table [settings]="settings" [source]="source" class="" (deleteConfirm)="deleteConfirm($event)"></ng2-smart-table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

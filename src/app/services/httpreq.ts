@@ -46,6 +46,13 @@ export class HttpServ {
     return this.http.post(this.baseurl + url, body, { headers: headers });
   }
 
+  public postuploadreq(url: string, body: any, auth: string) {
+    const headers = new HttpHeaders({
+      Authorization: "Basic " + auth
+    });
+
+    return this.http.post(this.baseurl + url, body, { headers: headers });
+  }
   public patchreq(url: string, body: any, auth: string, param?: any) {
     const headers = new HttpHeaders({
       "Content-Type": "application/json",
