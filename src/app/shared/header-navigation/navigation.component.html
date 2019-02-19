@@ -1,9 +1,9 @@
 <header class="topbar">
-    <nav class="navbar top-navbar navbar-expand-md navbar-light">
-        <!-- ============================================================== -->
-        <!-- Logo -->
-        <!-- ============================================================== -->
-        <!-- <div class="navbar-header">
+  <nav class="navbar top-navbar navbar-expand-md navbar-light">
+    <!-- ============================================================== -->
+    <!-- Logo -->
+    <!-- ============================================================== -->
+    <!-- <div class="navbar-header">
             <a class="navbar-brand" href="index.html">
                 Logo icon
                 <b>
@@ -23,23 +23,23 @@
                 </span>
             </a>
         </div> -->
+    <!-- ============================================================== -->
+    <!-- End Logo -->
+    <!-- ============================================================== -->
+    <div class="navbar-collapse">
+      <!-- ============================================================== -->
+      <!-- toggle and nav items -->
+      <!-- ============================================================== -->
+      <ul class="navbar-nav mr-auto mt-md-0">
+        <li class="nav-item m-l-10">
+          <a class="nav-link sidebartoggler text-muted waves-effect waves-dark" href="javascript:void(0)">
+            <i class="ti-menu"></i>
+          </a>
+        </li>
         <!-- ============================================================== -->
-        <!-- End Logo -->
+        <!-- Search -->
         <!-- ============================================================== -->
-        <div class="navbar-collapse">
-            <!-- ============================================================== -->
-            <!-- toggle and nav items -->
-            <!-- ============================================================== -->
-            <ul class="navbar-nav mr-auto mt-md-0">
-                <li class="nav-item m-l-10">
-                    <a class="nav-link sidebartoggler text-muted waves-effect waves-dark" href="javascript:void(0)">
-                        <i class="ti-menu"></i>
-                    </a>
-                </li>
-                <!-- ============================================================== -->
-                <!-- Search -->
-                <!-- ============================================================== -->
-                <!-- <li class="nav-item m-l-10 align-self-center hidden-xs-down">
+        <!-- <li class="nav-item m-l-10 align-self-center hidden-xs-down">
                     <form role="search" class="app-search">
                         <input type="text" placeholder="Search..." class="form-control">
                         <a href="">
@@ -47,15 +47,21 @@
                         </a>
                     </form>
                 </li> -->
-            </ul>
-            <!-- ============================================================== -->
-            <!-- User profile and search -->
-            <!-- ============================================================== -->
-            <ul class="navbar-nav my-lg-0">
-                <!-- ============================================================== -->
-                <!-- Comment -->
-                <!-- ============================================================== -->
-                <!-- <li class="nav-item dropdown" ngbDropdown placement="bottom-right">
+        <a  class="nav-link text-muted waves-effect waves-dark nav-item m-l-10 align-self-center hidden-xs-down" href="javascript:void(0)">LBH
+          Digital Platform
+        </a>
+      </ul>
+      <!-- ============================================================== -->
+      <!-- User profile and search -->
+      <!-- ============================================================== -->
+      <ul class="navbar-nav my-lg-0">
+        <a [routerLink]="'/logout'"class="nav-link text-muted waves-effect waves-dark align-self-center" ><i
+            class="fa fa-power-off"></i> Logout
+        </a>
+        <!-- ============================================================== -->
+        <!-- Comment -->
+        <!-- ============================================================== -->
+        <!-- <li class="nav-item dropdown" ngbDropdown placement="bottom-right">
                     <a ngbDropdownToggle class="nav-link text-muted text-muted waves-effect waves-dark" href="javascript:void(0)">
                         <i class="icon icon-note"></i>
                         <div class="notify">
@@ -92,13 +98,13 @@
                         </ul>
                     </div>
                 </li> -->
-                <!-- ============================================================== -->
-                <!-- End Comment -->
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
-                <!-- Messages -->
-                <!-- ============================================================== -->
-                <!-- <li class="nav-item dropdown" ngbDropdown placement="bottom-right">
+        <!-- ============================================================== -->
+        <!-- End Comment -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Messages -->
+        <!-- ============================================================== -->
+        <!-- <li class="nav-item dropdown" ngbDropdown placement="bottom-right">
                     <a ngbDropdownToggle class="nav-link text-muted waves-effect waves-dark" href="javascript:void(0)">
                         <i class="icon icon-envelope"></i>
                         <div class="notify">
@@ -135,13 +141,13 @@
                         </ul>
                     </div>
                 </li> -->
-                <!-- ============================================================== -->
-                <!-- End Messages -->
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
-                <!-- Messages -->
-                <!-- ============================================================== -->
-                <!-- <li class="nav-item dropdown mega-dropdown" ngbDropdown [autoClose]="false">
+        <!-- ============================================================== -->
+        <!-- End Messages -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Messages -->
+        <!-- ============================================================== -->
+        <!-- <li class="nav-item dropdown mega-dropdown" ngbDropdown [autoClose]="false">
                     <a ngbDropdownToggle class="nav-link text-muted waves-effect waves-dark" href="javascript:void(0)">Mega
                         <i class="icon icon-options-vertical"></i>
                     </a>
@@ -246,11 +252,11 @@
                         </ul>
                     </div>
                 </li> -->
-                <!-- ============================================================== -->
-                <!-- End Messages -->
-                <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- End Messages -->
+        <!-- ============================================================== -->
 
-            </ul>
-        </div>
-    </nav>
+      </ul>
+    </div>
+  </nav>
 </header>

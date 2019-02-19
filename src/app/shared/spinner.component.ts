@@ -42,16 +42,16 @@ export class SpinnerComponent implements OnDestroy {
           event instanceof NavigationCancel ||
           event instanceof NavigationError
         ) {
-          this.isSpinnerVisible = false;
+          setTimeout(() => (this.isSpinnerVisible = false), 500);
         }
       },
       () => {
-        this.isSpinnerVisible = false;
+        setTimeout(() => (this.isSpinnerVisible = false), 500);
       }
     );
   }
 
   ngOnDestroy(): void {
-    this.isSpinnerVisible = false;
+    setTimeout(() => (this.isSpinnerVisible = false), 500);
   }
 }

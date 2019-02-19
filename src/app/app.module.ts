@@ -32,6 +32,8 @@ import { SpinnerComponent } from "./shared/spinner.component";
 import { HttpServ } from "./services/httpreq";
 import { AuthService } from "./services/auth.service";
 import { Credentials } from "./services/credential";
+import { AuthGuardService } from "./services/authguard";
+import { MyDatePickerModule } from "mydatepicker";
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -59,7 +61,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     RouterModule.forRoot(Approutes, { useHash: false }),
     PerfectScrollbarModule,
     ToastrModule.forRoot(),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MyDatePickerModule
   ],
   providers: [
     {
@@ -69,7 +72,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     HttpServ,
     AuthService,
     Credentials,
-    ToastrService
+    ToastrService,
+    AuthGuardService
   ],
   bootstrap: [AppComponent]
 })

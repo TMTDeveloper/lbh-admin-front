@@ -94,6 +94,26 @@ export const ROUTES: RouteInfo[] = [
     extralink: false,
     submenu: []
   },
+  {
+    path: "",
+    title: "--- Master Utility",
+    icon: "",
+    class: "nav-small-cap",
+    label: "",
+    labelClass: "",
+    extralink: true,
+    submenu: []
+  },
+  {
+    path: "/home/utility",
+    title: "General Data",
+    icon: "icon-wrench",
+    class: "",
+    label: "",
+    labelClass: "label label-rounded label-themecolor pull-right",
+    extralink: false,
+    submenu: []
+  },
   // {
   //   path: "",
   //   title: "Apps",

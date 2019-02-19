@@ -4,7 +4,7 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
 import { FullComponent } from "./layouts/full/full.component";
 import { BlankComponent } from "./layouts/blank/blank.component";
-
+import { AuthGuardService as AuthGuard } from "./services/authguard";
 export const Approutes: Routes = [
   {
     path: "",
@@ -14,12 +14,18 @@ export const Approutes: Routes = [
         path: "",
         loadChildren:
           "./authentication/authentication.module#AuthenticationModule"
+      },
+      {
+        path: "404",
+        loadChildren:
+          "./authentication/authentication.module#AuthenticationModule"
       }
     ]
   },
   {
     path: "home",
     component: FullComponent,
+    canActivate: [AuthGuard],
     children: [
       { path: "", redirectTo: "./dashboard", pathMatch: "full" },
       {
@@ -27,38 +33,19 @@ export const Approutes: Routes = [
         loadChildren: "./dashboards/dashboard.module#DashboardModule"
       },
       {
-        path: "starter",
-        loadChildren: "./starter/starter.module#StarterModule"
+        path: "user-management",
+        loadChildren: "./user-management/user.master.module#UserMasterModule"
       },
-      {
-        path: "component",
-        loadChildren: "./component/component.module#ComponentsModule"
-      },
-      { path: "icons", loadChildren: "./icons/icons.module#IconsModule" },
-      { path: "forms", loadChildren: "./form/forms.module#FormModule" },
-      { path: "tables", loadChildren: "./table/tables.module#TablesModule" },
-      { path: "charts", loadChildren: "./charts/charts.module#ChartModule" },
-      { path: "user-management", loadChildren: "./user-management/user.master.module#UserMasterModule" },
       { path: "upload", loadChildren: "./upload/upload.module#UploadModule" },
-      {
-        path: "widgets",
-        loadChildren: "./widgets/widgets.module#WidgetsModule"
-      },
-      {
-        path: "extra-component",
-        loadChildren:
-          "./extra-component/extra-component.module#ExtraComponentsModule"
-      },
-      { path: "apps", loadChildren: "./apps/apps.module#AppsModule" },
-      {
-        path: "sample-pages",
-        loadChildren: "./sample-pages/sample-pages.module#SamplePagesModule"
-      }
+      { path: "utility", loadChildren: "./utility/utility.module#UtilityModule" }
     ]
   },
-
+  {
+    path: "logout",
+    redirectTo: ""
+  },
   {
     path: "**",
-    redirectTo: "/authentication/404"
+    redirectTo: "/404"
   }
 ];

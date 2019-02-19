@@ -47,12 +47,6 @@ export class UploadDocumentComponent {
       perPage: 30
     },
     columns: {
-      no: {
-        title: "No ",
-        type: "string",
-        filter: false,
-        editable: false
-      },
       originalfilename: {
         title: "File Name ",
         type: "string",
@@ -68,6 +62,15 @@ export class UploadDocumentComponent {
           return (value / 1000000).toFixed(2) + "MB";
         }
       },
+      type: {
+        title: "Type ",
+        type: "string",
+        filter: false,
+        editable: false,
+        valuePrepareFunction: value => {
+          return this.getTypeDokumen(value);
+        }
+      },
       date_upload: {
         title: "Date Upload ",
         type: "string",
@@ -79,10 +82,12 @@ export class UploadDocumentComponent {
       }
     }
   };
+
   loading: boolean = false;
-  readyToUpload: boolean = true;
+  readyToUpload: boolean = false;
   data: any;
   isPDF: boolean = true;
+  typeDocumentList = [];
   constructor(
     public httpserv: HttpServ,
     public toastr: ToastrService,
@@ -94,19 +99,24 @@ export class UploadDocumentComponent {
 
   createForm() {
     this.form = this.fb.group({
-      upload: null
+      upload: null,
+      jenis: [1, Validators.required]
     });
   }
 
   onFileChange(event) {
-    console.log(event.target.files[0].name);
-    if (!event.target.files[0].name.includes(".pdf")) {
+    console.log(this.form.get("jenis").value);
+    if (
+      !event.target.files[0].name.includes(".pdf") &&
+      this.form.get("jenis").value == 0
+    ) {
       console.log("gagal");
       this.readyToUpload = false;
       this.isPDF = false;
       return;
-    }
-    if (event.target.files.length > 0) {
+    } else if (event.target.files.length > 0) {
+      this.readyToUpload = true;
+      this.isPDF = true;
       let file = event.target.files[0];
       this.form.get("upload").setValue(file);
     }
@@ -120,17 +130,15 @@ export class UploadDocumentComponent {
     let input = new FormData();
     input.append("no_post", "document");
     input.append("file", this.form.get("upload").value);
+    input.append("type", this.form.get("jenis").value);
+    console.log(this.form.get("upload").value);
     return input;
   }
 
   onSubmit() {
     const formModel = this.prepareSave();
     this.loading = true;
-    console.log(formModel);
-    let body = {
-      file: this.form.get("upload").value,
-      no_post: "document"
-    };
+    console.log(this.form.get("jenis").value);
     this.toastr.info("Uploading");
     this.postData("uploadpost", formModel).subscribe(response => {
       let body = {
@@ -138,21 +146,10 @@ export class UploadDocumentComponent {
           no_post: "document"
         }
       };
-      this.postData("findupload", body).subscribe(response => {
-        console.log(response);
-        if (response) {
-          this.data = response.resp;
-          this.data.forEach((element, ind) => {
-            element.no = ind + 1;
-          });
-          console.log(this.data);
-          console.log(response);
-          this.clearFile();
-          this.toastr.success("Upload Success");
-          this.loading = false;
-          this.source.load(this.data);
-        }
-      });
+
+      this.getDataBeginning();
+      this.toastr.success("Upload Success");
+      this.loading = false;
     });
   }
 
@@ -187,6 +184,10 @@ export class UploadDocumentComponent {
   }
 
   ngAfterViewInit() {
+    this.getDataBeginning();
+  }
+
+  getDataBeginning() {
     let body = {
       where: {
         no_post: "document"
@@ -203,6 +204,24 @@ export class UploadDocumentComponent {
         this.source.load(this.data);
       }
     });
+    this.httpserv
+      .getreq(
+        "generals?filter[where][keyword]=jenis_dokumen&filter[where][active]=Y",
+        localStorage.getItem("token")
+      )
+      .subscribe(response => {
+        if (response) {
+          let arr: any;
+          arr = response;
+          arr.forEach(element => {
+            element.value = element.id_keyword;
+            element.title = element.value_keyword;
+          });
+          this.typeDocumentList = arr;
+          console.log(this.typeDocumentList);
+          this.source.reset();
+        }
+      });
   }
 
   getData(url) {
@@ -268,5 +287,19 @@ export class UploadDocumentComponent {
           }
         );
     });
+  }
+
+  getTypeDokumen(value) {
+    console.log(value);
+    console.log(this.typeDocumentList);
+    if (this.typeDocumentList.length == 0) {
+      return "";
+    } else {
+      for (const key in this.typeDocumentList) {
+        if (this.typeDocumentList[key].id_keyword == value) {
+          return this.typeDocumentList[key].value_keyword;
+        }
+      }
+    }
   }
 }

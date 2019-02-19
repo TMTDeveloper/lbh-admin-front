@@ -11,6 +11,7 @@ import { SignupComponent } from './signup/signup.component';
 import { Signup2Component } from './signup2/signup2.component';
 
 import { AuthenticationRoutes } from './authentication.routing';
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
   imports: [CommonModule, RouterModule.forChild(AuthenticationRoutes),FormsModule],
@@ -20,7 +21,8 @@ import { AuthenticationRoutes } from './authentication.routing';
     SignupComponent,
     LockComponent,
     Login2Component,
-    Signup2Component
+    Signup2Component,
+    LogoutComponent
   ]
 })
 export class AuthenticationModule {}

@@ -6,6 +6,10 @@
           <div class="form-group">
             <div class="col-lg-6">
               <label class="control-label m-t-20">Upload PDF</label>
+
+              <select class="custom-select col-12 mb-1" formControlName="jenis" id="jenis">
+                <option *ngFor="let item of typeDocumentList" [value]="item.id_keyword">{{item.value_keyword}}</option>
+              </select>
               <div class="input-group mb-3">
                 <input type="file" name="upload" id="upload" accept="application/pdf" class="form-control" placeholder=""
                   aria-label="" aria-describedby="basic-addon1" (change)="onFileChange($event)">
@@ -19,9 +23,8 @@
             </div>
           </div>
         </form>
-        <div class="table table-responsive smart-table">
-          <ng2-smart-table [settings]="settings" [source]="source" class="" (deleteConfirm)="deleteConfirm($event)"></ng2-smart-table>
-        </div>
+        <ng2-smart-table [settings]="settings" [source]="source" class="" (deleteConfirm)="deleteConfirm($event)"></ng2-smart-table>
+
       </div>
     </div>
   </div>

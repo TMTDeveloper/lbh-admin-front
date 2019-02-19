@@ -6,6 +6,7 @@ import { ToastrService } from "ngx-toastr";
 import * as moment from "moment";
 import { toInteger } from "@ng-bootstrap/ng-bootstrap/util/util";
 import { data } from "../../table/smart-table/smart-data-table";
+import { CustomEditorComponent } from "./CustomEditorComponents";
 @Component({
   selector: "button-view",
   template: `
@@ -38,6 +39,7 @@ export class ButtonViewComponent implements ViewCell, OnInit {
   templateUrl: "./user.master.component.html"
 })
 export class UserMasterComponent {
+  typeDocumentList = [];
   source: LocalDataSource = new LocalDataSource();
   settings = {
     edit: {
@@ -89,12 +91,11 @@ export class UserMasterComponent {
         editable: true,
         valuePrepareFunction: value => {
           switch (value) {
-            case 1:
+            case "1":
               return "Pengacara";
-            case 2:
+            case "2":
               return "Paralegal";
-
-            default:
+            case "3":
               return "Admin";
           }
         },
@@ -102,9 +103,9 @@ export class UserMasterComponent {
           type: "list",
           config: {
             list: [
-              { value: 1, title: "Pengacara" },
-              { value: 2, title: "Paralegal" },
-              { value: 3, title: "Admin" }
+              { value: "1", title: "Pengacara" },
+              { value: "2", title: "Paralegal" },
+              { value: "3", title: "Admin" }
             ]
           }
         }
@@ -133,33 +134,68 @@ export class UserMasterComponent {
           });
         }
       },
-      organisasi: {
-        title: "Organisasi",
+
+      sex: {
+        title: "Jenis Kelamin",
         type: "number",
         filter: false,
         editable: true,
         valuePrepareFunction: value => {
           switch (value) {
             case 1:
-              return "Pengacara";
+              return "Laki-laki";
             case 2:
-              return "Paralegal";
-
-            default:
-              return "Admin";
+              return "Perempuan";
+            case 3:
+              return "Lainnya";
           }
         },
         editor: {
           type: "list",
           config: {
             list: [
-              { value: 1, title: "Pengacara" },
-              { value: 2, title: "Paralegal" },
-              { value: 3, title: "Admin" }
+              { value: 1, title: "Laki-laki" },
+              { value: 2, title: "Perempuan" },
+              { value: 3, title: "Lainnya" }
             ]
           }
         }
       },
+      organisasi: {
+        title: "Organisasi",
+        type: "number",
+        filter: false,
+        editable: true,
+        valuePrepareFunction: value => {
+          for (const key in this.typeDocumentList) {
+            if (this.typeDocumentList[key].value == value) {
+              return this.typeDocumentList[key].title;
+            }
+          }
+        },
+        editor: {
+          type: "list",
+          config: {
+            list: this.typeDocumentList
+          }
+        }
+      },
+
+      date_of_birth: {
+        title: "Tanggal Lahir",
+        type: "string",
+        filter: false,
+        editable: true,
+        valuePrepareFunction: value => {
+          return moment(value).format("DD-MM-YYYY");
+        },
+        editor: {
+          type: "custom",
+          component: CustomEditorComponent
+        }
+        //renderComponent: MokaRealisasiDatePicker
+      },
+
       active: {
         title: "Flag Active",
         type: "html",
@@ -187,11 +223,38 @@ export class UserMasterComponent {
     // this.source = new LocalDataSource(tableData.data); // create the source
   }
   ngAfterViewInit() {
+    this.getUserDataAndGenerals();
+  }
+
+  getUserDataAndGenerals() {
     this.getData("users").subscribe(response => {
       console.log(response);
       if (response) {
         console.log(this.data);
         this.source.load(this.data);
+        this.httpserv
+          .getreq(
+            "generals?filter[where][keyword]=organisasi&filter[where][active]=Y",
+            localStorage.getItem("token")
+          )
+          .subscribe(response => {
+            if (response) {
+              let arr: any;
+              arr = response;
+
+              arr.forEach(element => {
+                let a = {
+                  value: element.id_keyword,
+                  title: element.value_keyword
+                };
+                this.typeDocumentList.push(a);
+              });
+              // this.typeDocumentList = arr;
+              console.log(this.typeDocumentList);
+              this.settings = Object.assign({}, this.settings);
+              this.source.reset();
+            }
+          });
       }
     });
   }
@@ -276,6 +339,11 @@ export class UserMasterComponent {
     dataToPatch.role = parseInt(dataToPatch.role);
     console.log(event.newData);
     dataToPatch.date_modified = moment().format();
+    dataToPatch.date_of_birth = moment(
+      dataToPatch.date_of_birth,
+      "DD/MM/YYYY"
+    ).format();
+    dataToPatch.sex = parseInt(dataToPatch.sex);
     let filter = {
       "where[email]": event.newData.email
     };
@@ -284,6 +352,7 @@ export class UserMasterComponent {
       if (response) {
         this.toastr.success("Pengubahan Data Berhasil");
         event.confirm.resolve(event.newData);
+        this.getUserDataAndGenerals();
       } else {
         this.toastr.error("Pengubahan Data Gagal");
         event.confirm.reject();
@@ -305,6 +374,11 @@ export class UserMasterComponent {
     dataToPost.date_modified = moment().format();
     dataToPost.session_end = moment().format();
     dataToPost.last_access = moment().format();
+    dataToPost.date_of_birth = moment(
+      dataToPost.date_of_birth,
+      "DD/MM/YYYY"
+    ).format();
+    dataToPost.sex = parseInt(dataToPost.sex);
 
     this.postData("users", dataToPost).subscribe((response, data) => {
       if (response.status) {
@@ -312,6 +386,7 @@ export class UserMasterComponent {
         event.newData.password = response.resp.password;
         this.toastr.success("Penambahan Data Berhasil");
         event.confirm.resolve(event.newData);
+        this.getUserDataAndGenerals();
       } else {
         this.toastr.error("Penambahan Data Gagal");
         event.confirm.reject();
@@ -328,5 +403,9 @@ export class UserMasterComponent {
       }
     });
     return res;
+  }
+  dateReformat(value) {
+    let str = value.split("/");
+    return str[2] + "-" + str[1] + "-" + str[0];
   }
 }
