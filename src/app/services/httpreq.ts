@@ -22,7 +22,7 @@ export class MyCustomHttpUrlEncodingCodec extends HttpUrlEncodingCodec {
 export class HttpServ {
   // baseurlxpay:string='http://202.158.20.141:5001/xpay-service/api/'
 
-  baseurl: string = "http://127.0.0.1:3000/";
+  baseurl: string = "http://178.128.212.2:3003/";
   currentUser: User;
   //178.128.212.2:3003
 

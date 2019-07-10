@@ -13,7 +13,7 @@ import { data } from "../../table/smart-table/smart-data-table";
 })
 export class GeneralsComponent {
   source: LocalDataSource = new LocalDataSource();
-
+  cred: any;
   settings = {
     edit: {
       editButtonContent: '<i class="ti-pencil text-info m-r-10"></i>',
@@ -83,7 +83,10 @@ export class GeneralsComponent {
   loading: boolean = false;
   data: any;
 
-  constructor(public httpserv: HttpServ, public toastr: ToastrService) {}
+  constructor(public httpserv: HttpServ, public toastr: ToastrService) {
+    this.cred = JSON.parse(window.localStorage.getItem("cred"));
+    console.log(this.cred)
+  }
 
   ngAfterViewInit() {
     this.getDataBeginning();

@@ -1,13 +1,15 @@
 <div class="row">
-    <div class="col-12">
-      <div class="card">
-        <div class="card-body">
-
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <div *ngIf="cred.role==4">
           <ng2-smart-table [settings]="settings" [source]="source" class="" (editConfirm)="editConfirm($event)"
-          (createConfirm)="createConfirm($event)"></ng2-smart-table>
-  
+            (createConfirm)="createConfirm($event)"></ng2-smart-table>
+        </div>
+        <div *ngIf="cred.role==3">
+          Utility ini hanya untuk superdmin.
         </div>
       </div>
     </div>
   </div>
-  
+</div>

@@ -20,12 +20,7 @@ export class CustomEditorComponent extends DefaultEditor
     // other options...
     dateFormat: "dd/mm/yyyy"
   };
-  @ViewChild("name")
-  name: ElementRef;
-  @ViewChild("url")
-  url: ElementRef;
-  @ViewChild("htmlValue")
-  htmlValue: ElementRef;
+
   public dateAssignment: any = { date: { year: 2009, month: 10, day: 9 } };
   constructor() {
     super();
@@ -34,8 +29,10 @@ export class CustomEditorComponent extends DefaultEditor
     this.updateValue(event);
   }
   ngAfterViewInit() {
-    if (this.cell.newValue !== "") {
+    if (this.cell.newValue == "") {
       let dateInit = this.cell.getValue();
+      console.log(this.cell.newValue)
+      console.log(this.cell.getValue());
       this.dateAssignment = {
         date: {
           year: parseInt(dateInit.substring(6, 10)),
@@ -49,14 +46,6 @@ export class CustomEditorComponent extends DefaultEditor
     return ("00" + n).slice(-2);
   }
   updateValue(event) {
-    console.log(
-      this.dateAssignment.date.day +
-        "/" +
-        this.dateAssignment.date.month +
-        "/" +
-        this.dateAssignment.date.year
-    );
     this.cell.newValue = event.value;
-
   }
 }

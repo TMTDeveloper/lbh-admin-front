@@ -5,6 +5,7 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { FullComponent } from "./layouts/full/full.component";
 import { BlankComponent } from "./layouts/blank/blank.component";
 import { AuthGuardService as AuthGuard } from "./services/authguard";
+import { AdminGuardService as AdminGuard } from "./services/adminguard";
 export const Approutes: Routes = [
   {
     path: "",
@@ -37,7 +38,10 @@ export const Approutes: Routes = [
         loadChildren: "./user-management/user.master.module#UserMasterModule"
       },
       { path: "upload", loadChildren: "./upload/upload.module#UploadModule" },
-      { path: "utility", loadChildren: "./utility/utility.module#UtilityModule" }
+      {
+        path: "utility",
+        loadChildren: "./utility/utility.module#UtilityModule"
+      }
     ]
   },
   {

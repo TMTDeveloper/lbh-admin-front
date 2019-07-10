@@ -34,6 +34,7 @@ import { AuthService } from "./services/auth.service";
 import { Credentials } from "./services/credential";
 import { AuthGuardService } from "./services/authguard";
 import { MyDatePickerModule } from "mydatepicker";
+import { AdminGuardService } from "./services/adminguard";
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -73,7 +74,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AuthService,
     Credentials,
     ToastrService,
-    AuthGuardService
+    AuthGuardService,
+    AdminGuardService
   ],
   bootstrap: [AppComponent]
 })

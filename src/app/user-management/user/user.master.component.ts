@@ -1,4 +1,12 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  ViewChild,
+  TemplateRef
+} from "@angular/core";
 import { LocalDataSource, ViewCell } from "ng2-smart-table";
 import { HttpServ } from "../../services/httpreq";
 import { Observable } from "rxjs";
@@ -7,6 +15,11 @@ import * as moment from "moment";
 import { toInteger } from "@ng-bootstrap/ng-bootstrap/util/util";
 import { data } from "../../table/smart-table/smart-data-table";
 import { CustomEditorComponent } from "./CustomEditorComponents";
+import {
+  NgbModal,
+  ModalDismissReasons,
+  NgbActiveModal
+} from "@ng-bootstrap/ng-bootstrap";
 @Component({
   selector: "button-view",
   template: `
@@ -40,6 +53,12 @@ export class ButtonViewComponent implements ViewCell, OnInit {
 })
 export class UserMasterComponent {
   typeDocumentList = [];
+  roleList = [];
+  closeResult: string;
+  cred: any;
+  newPass: string;
+  @ViewChild("content") public content: TemplateRef<any>;
+
   source: LocalDataSource = new LocalDataSource();
   settings = {
     edit: {
@@ -91,22 +110,20 @@ export class UserMasterComponent {
         editable: true,
         valuePrepareFunction: value => {
           switch (value) {
-            case "1":
-              return "Pengacara";
             case "2":
+              return "Pengacara";
+            case "1":
               return "Paralegal";
             case "3":
               return "Admin";
+            case "4":
+              return "Superadmin";
           }
         },
         editor: {
           type: "list",
           config: {
-            list: [
-              { value: "1", title: "Pengacara" },
-              { value: "2", title: "Paralegal" },
-              { value: "3", title: "Admin" }
-            ]
+            list: this.roleList
           }
         }
       },
@@ -118,19 +135,12 @@ export class UserMasterComponent {
         renderComponent: ButtonViewComponent,
         onComponentInitFunction: instance => {
           instance.save.subscribe(row => {
-            let data = row;
-            data.password = "password";
-            data.role = parseInt(data.role);
-            data.organisasi = parseInt(data.organisasi);
-            this.patchData("users/reset", row, {
-              "where[email_login]": row.email_login
-            }).subscribe(response => {
-              if (response) {
-                this.toastr.success("Password Berhasil di Reset");
-              } else {
-                this.toastr.error("Password Gagal di Reset");
-              }
-            });
+            console.log(this.cred);
+            if (this.cred.role !== 4) {
+              this.toastr.error("Reset password hanya untuk Superadmin");
+            } else {
+              this.open(row);
+            }
           });
         }
       },
@@ -219,15 +229,28 @@ export class UserMasterComponent {
   };
 
   data: any;
-  constructor(public httpserv: HttpServ, public toastr: ToastrService) {
+  constructor(
+    public httpserv: HttpServ,
+    public toastr: ToastrService,
+    private modalService: NgbModal
+  ) {
+    this.cred = JSON.parse(window.localStorage.getItem("cred"));
     // this.source = new LocalDataSource(tableData.data); // create the source
   }
   ngAfterViewInit() {
+    this.setRole();
     this.getUserDataAndGenerals();
   }
 
   getUserDataAndGenerals() {
-    this.getData("users").subscribe(response => {
+    let urlstring = "";
+    if (this.cred.role == 3) {
+      urlstring =
+        "users?filter[where][organisasi]=" + this.cred.organisasi.toString()+"&filter[where][role][lt]=4"
+    } else {
+      urlstring = "users";
+    }
+    this.getData(urlstring).subscribe(response => {
       console.log(response);
       if (response) {
         console.log(this.data);
@@ -241,14 +264,23 @@ export class UserMasterComponent {
             if (response) {
               let arr: any;
               arr = response;
-
-              arr.forEach(element => {
-                let a = {
-                  value: element.id_keyword,
-                  title: element.value_keyword
-                };
-                this.typeDocumentList.push(a);
-              });
+              if (this.cred.role == 3) {
+                let organisasi = arr.find(
+                  organisasi => organisasi.id_keyword == this.cred.organisasi
+                );
+                this.typeDocumentList.push({
+                  value: organisasi.id_keyword,
+                  title: organisasi.value_keyword
+                });
+              } else {
+                arr.forEach(element => {
+                  let a = {
+                    value: element.id_keyword,
+                    title: element.value_keyword
+                  };
+                  this.typeDocumentList.push(a);
+                });
+              }
               // this.typeDocumentList = arr;
               console.log(this.typeDocumentList);
               this.settings = Object.assign({}, this.settings);
@@ -257,6 +289,12 @@ export class UserMasterComponent {
           });
       }
     });
+  }
+
+  setRole() {
+    this.roleList.push({ value: "1", title: "Paralegal" });
+    this.roleList.push({ value: "2", title: "Pengacara" });
+    this.roleList.push({ value: "3", title: "Admin" });
   }
 
   getData(url) {
@@ -327,8 +365,40 @@ export class UserMasterComponent {
   editConfirm(event) {
     console.log("here");
     console.log(event);
+    if (event.data.role == "3" && event.newData.role != "3") {
+      this.toastr.info(
+        "Role admin tidak bisa dirubah menjadi pengacara/paralegal"
+      );
+      event.confirm.reject();
+      return;
+    }
+    if (event.data.role == "4" && event.newData.role !== "4") {
+      this.toastr.info(
+        "Role superadmin tidak bisa dirubah menjadi pengacara/paralegal/admin"
+      );
+      event.confirm.reject();
+      return;
+    }
     if (
-      this.checkId(event.newData.email_login) &&
+      this.cred.role == "3" &&
+      event.newData.role == "3" &&
+      event.data.role !== "3"
+    ) {
+      this.toastr.info("User tidak bisa dirubah menjadi admin");
+      event.confirm.reject();
+      return;
+    }
+    if (
+      this.cred.role == "4" &&
+      event.newData.role == "3" &&
+      event.data.role !== "3"
+    ) {
+      this.toastr.info("User tidak bisa dirubah menjadi admin");
+      event.confirm.reject();
+      return;
+    }
+    if (
+      this.checkIdEdit(event.newData.email_login, event.data.email_login) &&
       event.data.email_login != event.newData.email_login
     ) {
       event.confirm.reject();
@@ -361,7 +431,12 @@ export class UserMasterComponent {
   }
 
   createConfirm(event) {
-    console.log(event);
+    if (this.cred.role == "3" && event.newData.role == "3") {
+      this.toastr.info("Admin tidak bisa membuat akun admin lain");
+      event.confirm.reject();
+      return;
+    }
+
     if (this.checkId(event.newData.email_login)) {
       event.confirm.reject();
       return;
@@ -404,8 +479,56 @@ export class UserMasterComponent {
     });
     return res;
   }
+
+  checkIdEdit(email: string, old_email: string): boolean {
+    let res = false;
+    if (email == old_email) {
+      return res;
+    }
+    this.data.forEach(element => {
+      if (email == element.email_login) {
+        this.toastr.warning("Email sudah ada yang sama");
+        res = true;
+      }
+    });
+    return res;
+  }
   dateReformat(value) {
     let str = value.split("/");
     return str[2] + "-" + str[1] + "-" + str[0];
+  }
+
+  open(row) {
+    this.modalService.open(this.content).result.then(
+      result => {
+        if (this.newPass.length < 6) {
+          this.toastr.error("Password minimal 6 karakter");
+          this.newPass = "";
+        } else {
+          this.resetPasswordRequest(row);
+        }
+      },
+      reason => {
+        this.newPass = "";
+      }
+    );
+  }
+
+  resetPasswordRequest(row) {
+    let data = row;
+    data.password = "password";
+    data.role = parseInt(data.role);
+    data.organisasi = parseInt(data.organisasi);
+    data.new_password = this.newPass;
+    this.patchData("users/reset", row, {
+      "where[email_login]": row.email_login
+    }).subscribe(response => {
+      if (response) {
+        this.toastr.success("Password Berhasil di Reset");
+      } else {
+        this.toastr.error("Password Gagal di Reset");
+      }
+      this.newPass = "";
+    });
   }
 }
